@@ -1,6 +1,6 @@
 {
-  "name": "address-autocomplete",
-  "version": "1.0.0",
+  "name": "@react-ag-components/address",
+  "version": "0.0.1",
   "description": "address-autocomplete React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -18,7 +18,13 @@
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@gov.au/body": "^0.1.1",
+    "@gov.au/pancake-sass": "^1.1.0",
+    "@gov.au/text-inputs": "^0.1.1",
+    "@react-ag-components/input": "0.0.2",
+    "react-google-autocomplete": "^1.0.13"
+  },
   "peerDependencies": {
     "react": "15.x"
   },
@@ -26,6 +32,28 @@
     "nwb": "0.15.x",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
+  },
+  "pancake": {
+    "auto-save": true,
+    "plugins": true,
+    "ignore": [],
+    "css": {
+      "minified": true,
+      "modules": false,
+      "browsers": [
+        "last 2 versions",
+        "ie 8",
+        "ie 9",
+        "ie 10"
+      ],
+      "location": "src/",
+      "name": "ui-kit.css"
+    },
+    "sass": {
+      "modules": false,
+      "location": false,
+      "name": false
+    }
   },
   "author": "",
   "homepage": "",
