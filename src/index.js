@@ -32,7 +32,6 @@ class Address extends React.Component {
 
       this.linkStyle = {
         display: "inline-block",
-        marginTop: "1em",
         marginBottom:"1em"
       }
 

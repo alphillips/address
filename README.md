@@ -1,16 +1,63 @@
-# address-autocomplete
+# input
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+React component for Address field
 
-Describe address-autocomplete here.
+## Usage
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
+### Install
+```
+npm i @react-ag-components/address --save
+```
+### Use in your project
+```
+import Address from '@react-ag-components/address'
+```
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+```
 
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+onAddressChange = (address) => {
+  console.log(address)
+}
+
+<Address onChange={this.onAddressChange}/>
+
+```
+
+### Properties
+
+Only has one prop `onChange` which takes a function that returns an address object that matches our PartyDS service.
+```
+{
+  addressline1:'',
+  addressline2:'',
+  addressline3:'',
+  city:'',
+  state:'',
+  postcode:'',
+  country:''
+}
+```
+
+## Contributing
+
+Get the repository
+```
+git clone https://github.com/alphillips/address.git
+```
+
+Update dependencies
+```
+npm install
+```
+
+Run the project
+```
+npm start
+```
+
+### Deploy to npm
+#### Build
+`npm run build -- --copy-files`
+
+#### Publish
+`npm publish --access public`

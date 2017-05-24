@@ -1,6 +1,6 @@
 {
   "name": "@react-ag-components/address",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "address-autocomplete React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -58,7 +58,10 @@
   "author": "",
   "homepage": "",
   "license": "MIT",
-  "repository": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/alphillips/address.git"
+  },
   "keywords": [
     "react-component"
   ]
