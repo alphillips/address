@@ -3,6 +3,7 @@ import React from 'react'
 import Autocomplete from 'react-google-autocomplete'
 
 import Input from '@react-ag-components/input'
+import ReferenceDataSelector from '@react-ag-components/reference-data-selector'
 
 import './ui-kit.css'
 import './styles.css'
@@ -98,7 +99,8 @@ class Address extends React.Component {
                   id="unit"
                   value={this.state.unit}
                   onChange={this.onChange('unit')}
-                  maxWidth="100px"
+                  maxWidth="125px"
+                  placeholder="Unit, floor, etc..."
                 />
               </div>
               <div className="address-coln-addr">
@@ -161,12 +163,15 @@ class Address extends React.Component {
             maxWidth="100px"
           />
 
-          <Input
-            label="Country"
-            id="country"
-            value={this.state.country}
+          <ReferenceDataSelector
+            id="country-selector"
+            label="Country you wish to export to"
+            placeholder="Select country"
+            type="country"
             onChange={this.onChange('country')}
+            value={this.state.country}
           />
+
         </div>
         }
 

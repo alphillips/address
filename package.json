@@ -22,7 +22,8 @@
     "@gov.au/body": "^0.1.1",
     "@gov.au/pancake-sass": "^1.1.0",
     "@gov.au/text-inputs": "^0.1.1",
-    "@react-ag-components/input": "0.0.2",
+    "@react-ag-components/input": "0.0.3",
+    "@react-ag-components/reference-data-selector": "0.0.3",
     "react-google-autocomplete": "^1.0.13"
   },
   "peerDependencies": {
@@ -59,8 +60,8 @@
   "homepage": "",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/alphillips/address.git"
+    "type": "git",
+    "url": "https://github.com/alphillips/address.git"
   },
   "keywords": [
     "react-component"
