@@ -57,20 +57,37 @@ class Address extends React.Component {
       address[addressType] = places.address_components[i].short_name
     }
 
-    let line1 = ''
-    if(address.subpremise){
-      line1 += address.subpremise + '/'
+    if(this.state.unit !== '' && this.state.unit.trim().length > 0){
+      this.address.addressline1 = this.state.unit
+      let line2 = ''
+      if(address.subpremise){
+        line2 += address.subpremise + '/'
+      }
+      if(address.street_number){
+        line2 += address.street_number
+      }
+      line2 += ' ' + address.route
+      this.address.addressline2=line2,
+      this.address.addressline3=''
+    } else {
+
+      let line1 = ''
+      if(address.subpremise){
+        line1 += address.subpremise + '/'
+      }
+      if(address.street_number){
+        line1 += address.street_number
+      }
+      line1 += ' ' + address.route
+      this.address.addressline1=line1,
+      this.address.addressline2='',
+      this.address.addressline3=''
     }
-    if(address.street_number){
-      line1 += address.street_number
-    }
-    line1 += ' ' + address.route
-    this.address.addressline1=line1,
-    this.address.addressline2='',
-    this.address.addressline3='',
-    this.address.city=address.locality,
-    this.address.state=address.administrative_area_level_1,
-    this.address.postcode=address.postal_code,
+
+
+    this.address.city=address.locality
+    this.address.state=address.administrative_area_level_1
+    this.address.postcode=address.postal_code
     this.address.country=address.country
 
     if(this.props.onChange){
@@ -165,7 +182,7 @@ class Address extends React.Component {
 
           <ReferenceDataSelector
             id="country-selector"
-            label="Country you wish to export to"
+            label="Country"
             placeholder="Select country"
             type="country"
             onChange={this.onChange('country')}

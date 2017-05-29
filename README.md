@@ -9,6 +9,16 @@ React component for Address field
 npm i @react-ag-components/address --save
 ```
 ### Use in your project
+
+First you must included the google script
+
+```
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=[Your API key]&libraries=places"></script>
+
+```
+
+Then import into your page or component
+
 ```
 import Address from '@react-ag-components/address'
 ```
