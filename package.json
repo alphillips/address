@@ -1,6 +1,6 @@
 {
   "name": "@react-ag-components/address",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "address-autocomplete React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@gov.au/body": "^0.1.1",
+    "@gov.au/direction-links": "^0.2.0",
     "@gov.au/pancake-sass": "^1.1.0",
     "@gov.au/text-inputs": "^0.1.1",
     "@react-ag-components/input": "0.0.3",

@@ -14,7 +14,6 @@ class Address extends React.Component {
       super(props)
 
       this.state = {
-        unit:'',
         addressline1:'',
         addressline2:'',
         addressline3:'',
@@ -57,19 +56,19 @@ class Address extends React.Component {
       address[addressType] = places.address_components[i].short_name
     }
 
-    if(this.state.unit !== '' && this.state.unit.trim().length > 0){
-      this.address.addressline1 = this.state.unit
-      let line2 = ''
-      if(address.subpremise){
-        line2 += address.subpremise + '/'
-      }
-      if(address.street_number){
-        line2 += address.street_number
-      }
-      line2 += ' ' + address.route
-      this.address.addressline2=line2,
-      this.address.addressline3=''
-    } else {
+    // if(this.state.unit !== '' && this.state.unit.trim().length > 0){
+    //   this.address.addressline1 = this.state.unit
+    //   let line2 = ''
+    //   if(address.subpremise){
+    //     line2 += address.subpremise + '/'
+    //   }
+    //   if(address.street_number){
+    //     line2 += address.street_number
+    //   }
+    //   line2 += ' ' + address.route
+    //   this.address.addressline2=line2,
+    //   this.address.addressline3=''
+    // } else {
 
       let line1 = ''
       if(address.subpremise){
@@ -82,7 +81,7 @@ class Address extends React.Component {
       this.address.addressline1=line1,
       this.address.addressline2='',
       this.address.addressline3=''
-    }
+    // }
 
 
     this.address.city=address.locality
@@ -108,8 +107,8 @@ class Address extends React.Component {
       <div>
         <fieldset className="address-field">
           <legend>{this.props.label || 'Address'}</legend>
-          <div className="address-grid">
-            <div className="address-row">
+
+            {/*}
               <div className="address-coln-unit">
                 <Input
                   label=""
@@ -120,7 +119,8 @@ class Address extends React.Component {
                   placeholder="Unit, floor, etc..."
                 />
               </div>
-              <div className="address-coln-addr">
+              */}
+
                 <Autocomplete
                   onPlaceSelected={this.onPlaceSelected}
                   types={['geocode']}
@@ -128,11 +128,14 @@ class Address extends React.Component {
                   style={this.autoCompleteStyle}
                   placeholder="Enter address"
                 />
-              </div>
-            </div>
-          </div>
+
+
         </fieldset>
-        <a href="#" style={this.linkStyle} onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}</a>
+        <a
+          href="#"
+          style={this.linkStyle}
+          onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
+        </a>
 
         {this.state.enterManually &&
         <div>
