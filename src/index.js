@@ -37,6 +37,35 @@ class Address extends React.Component {
 
   }
 
+  componentDidMount() {
+    if(this.props.value){
+      this.populateAddress(this.props.value)
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.value){
+      this.populateAddress(nextProps.value)
+    }
+  }
+
+  populateAddress(data){
+    if(data){
+      this.setState((prevState, props) => ({
+        enterManually: true,
+        enterMauallyText: 'Close manual address',
+        addressline1:data.addressline1,
+        addressline2:data.addressline2,
+        addressline3:data.addressline3,
+        city:data.city,
+        state:data.state,
+        postcode:data.postcode,
+        country:data.country
+      }))
+      this.address = data
+    }
+  }
+
   onChange = (field) => {
     return (value) => {
       this.setState((prevState, props) => ({
@@ -56,33 +85,18 @@ class Address extends React.Component {
       address[addressType] = places.address_components[i].short_name
     }
 
-    // if(this.state.unit !== '' && this.state.unit.trim().length > 0){
-    //   this.address.addressline1 = this.state.unit
-    //   let line2 = ''
-    //   if(address.subpremise){
-    //     line2 += address.subpremise + '/'
-    //   }
-    //   if(address.street_number){
-    //     line2 += address.street_number
-    //   }
-    //   line2 += ' ' + address.route
-    //   this.address.addressline2=line2,
-    //   this.address.addressline3=''
-    // } else {
 
-      let line1 = ''
-      if(address.subpremise){
-        line1 += address.subpremise + '/'
-      }
-      if(address.street_number){
-        line1 += address.street_number
-      }
-      line1 += ' ' + address.route
-      this.address.addressline1=line1,
-      this.address.addressline2='',
-      this.address.addressline3=''
-    // }
-
+    let line1 = ''
+    if(address.subpremise){
+      line1 += address.subpremise + '/'
+    }
+    if(address.street_number){
+      line1 += address.street_number
+    }
+    line1 += ' ' + address.route
+    this.address.addressline1=line1,
+    this.address.addressline2='',
+    this.address.addressline3=''
 
     this.address.city=address.locality
     this.address.state=address.administrative_area_level_1
@@ -108,27 +122,13 @@ class Address extends React.Component {
         <fieldset className="address-field">
           <legend>{this.props.label || 'Address'}</legend>
 
-            {/*}
-              <div className="address-coln-unit">
-                <Input
-                  label=""
-                  id="unit"
-                  value={this.state.unit}
-                  onChange={this.onChange('unit')}
-                  maxWidth="125px"
-                  placeholder="Unit, floor, etc..."
-                />
-              </div>
-              */}
-
-                <Autocomplete
-                  onPlaceSelected={this.onPlaceSelected}
-                  types={['geocode']}
-                  className="uikit-text-input uikit-text-input--block"
-                  style={this.autoCompleteStyle}
-                  placeholder="Enter address"
-                />
-
+            <Autocomplete
+              onPlaceSelected={this.onPlaceSelected}
+              types={['geocode']}
+              className="uikit-text-input uikit-text-input--block"
+              style={this.autoCompleteStyle}
+              placeholder="Enter address"
+            />
 
         </fieldset>
         <a

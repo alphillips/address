@@ -9,16 +9,17 @@ class Demo extends React.Component {
       super(props)
 
       this.state = {
-        unit:'',
-        line1:'',
-        line2:'',
-        line3:'',
-        city:'',
-        state:'',
-        postcode:'',
-        country:''
       }
-      this.address = {}
+
+      this.address = {
+        addressline1:'7 Honmachi',
+        addressline2:'',
+        addressline3:'',
+        city:'Shibuya-ku',
+        state:'Tōkyō-to',
+        postcode:'151-0071',
+        country:'JP'
+      }
   }
 
   onChange = (address) => {
@@ -31,6 +32,9 @@ class Demo extends React.Component {
       <div>
         <h1>address-autocomplete Demo</h1>
         <Component onChange={this.onChange}/>
+
+        <h2>Pre-populated address</h2>
+        <Component value={this.address} onChange={this.onChange}/>
       </div>
     )
   }
