@@ -14,9 +14,9 @@ class Address extends React.Component {
       super(props)
 
       this.state = {
-        addressline1:'',
-        addressline2:'',
-        addressline3:'',
+        addressLine1:'',
+        addressLine2:'',
+        addressLine3:'',
         city:'',
         state:'',
         postcode:'',
@@ -54,9 +54,9 @@ class Address extends React.Component {
       this.setState((prevState, props) => ({
         enterManually: true,
         enterMauallyText: 'Close manual address',
-        addressline1:data.addressline1,
-        addressline2:data.addressline2,
-        addressline3:data.addressline3,
+        addressLine1:data.addressLine1,
+        addressLine2:data.addressLine2,
+        addressLine3:data.addressLine3,
         city:data.city,
         state:data.state,
         postcode:data.postcode,
@@ -94,9 +94,9 @@ class Address extends React.Component {
       line1 += address.street_number
     }
     line1 += ' ' + address.route
-    this.address.addressline1=line1,
-    this.address.addressline2='',
-    this.address.addressline3=''
+    this.address.addressLine1=line1,
+    this.address.addressLine2='',
+    this.address.addressLine3=''
 
     this.address.city=address.locality
     this.address.state=address.administrative_area_level_1
@@ -142,22 +142,22 @@ class Address extends React.Component {
           <Input
             label="Address line 1"
             id="address1"
-            value={this.state.addressline1}
-            onChange={this.onChange('addressline1')}
+            value={this.state.addressLine1}
+            onChange={this.onChange('addressLine1')}
           />
 
           <Input
             label="Address line 2"
             id="address2"
-            value={this.state.addressline2}
-            onChange={this.onChange('addressline2')}
+            value={this.state.addressLine2}
+            onChange={this.onChange('addressLine2')}
           />
 
           <Input
             label="Address line 3"
             id="address3"
-            value={this.state.addressline3}
-            onChange={this.onChange('addressline3')}
+            value={this.state.addressLine3}
+            onChange={this.onChange('addressLine3')}
           />
 
           <Input
