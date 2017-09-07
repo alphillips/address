@@ -1,9 +1,10 @@
 import React from 'react'
 
 import Autocomplete from 'react-google-autocomplete'
-
 import Input from '@react-ag-components/input'
+// import Input from './../../components/Input'
 import ReferenceDataSelector from '@react-ag-components/reference-data-selector'
+// import ReferenceDataSelector from './../../components/RefDataSelector'
 
 import './ui-kit.css'
 import './styles.css'
@@ -27,7 +28,7 @@ class Address extends React.Component {
       this.address = {}
 
       this.autoCompleteStyle = {
-        maxWidth: props.maxWidth || "500px"
+        maxWidth: props.maxWidth || "100%"
       }
 
       this.linkStyle = {
@@ -117,6 +118,13 @@ class Address extends React.Component {
   }
 
   render() {
+
+    let componentRestrictions = {}
+
+    if(this.props.country){
+      componentRestrictions.country = this.props.country
+    }
+
     return (
       <div>
         <fieldset className="address-field">
@@ -128,6 +136,7 @@ class Address extends React.Component {
               className="uikit-text-input uikit-text-input--block"
               style={this.autoCompleteStyle}
               placeholder="Enter address"
+              componentRestrictions={componentRestrictions}
             />
 
         </fieldset>

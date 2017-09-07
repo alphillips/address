@@ -3,6 +3,8 @@ import {render} from 'react-dom'
 
 import Component from '../../src'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 class Demo extends React.Component {
 
   constructor(props) {
@@ -29,13 +31,17 @@ class Demo extends React.Component {
 
   render() {
     return (
+      <MuiThemeProvider>
       <div>
+
         <h1>address-autocomplete Demo</h1>
-        <Component onChange={this.onChange}/>
+        <Component onChange={this.onChange} country="au"/>
 
         <h2>Pre-populated address</h2>
         <Component value={this.address} onChange={this.onChange}/>
+
       </div>
+      </MuiThemeProvider>
     )
   }
 }

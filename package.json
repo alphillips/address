@@ -1,6 +1,6 @@
 {
   "name": "@react-ag-components/address",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "address-autocomplete React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -19,8 +19,8 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "@react-ag-components/input": "0.0.3",
-    "@react-ag-components/reference-data-selector": "0.0.7",
+    "@react-ag-components/input": "0.1.0",
+    "@react-ag-components/reference-data-selector": "0.1.1",
     "react-google-autocomplete": "^1.0.13"
   },
   "peerDependencies": {
