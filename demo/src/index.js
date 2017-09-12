@@ -37,10 +37,13 @@ class Demo extends React.Component {
       <div>
 
         <h1>address-autocomplete Demo</h1>
-        <Component onChange={this.onChange}/>
+        <Component
+          onChange={this.onChange} />
 
         <h2>Pre-populated address</h2>
-        <Component value={this.address} onChange={this.onChange}/>
+        <Component
+          value={this.address}
+          onChange={this.onChange}/>
 
         <h2>City only</h2>
         <Component

@@ -1,6 +1,7 @@
 import React from 'react'
 
-import Autocomplete from 'react-google-autocomplete'
+import Autocomplete from './ReactGoogleAutocomplete.js'
+// import {ReactCustomGoogleAutocomplete} from 'react-google-autocomplete'
 import Input from '@react-ag-components/input'
 // import Input from './../../components/Input'
 import ReferenceDataSelector from '@react-ag-components/reference-data-selector'
@@ -28,6 +29,8 @@ class Address extends React.Component {
         defaultValue:props.defaultValue || ''
       }
       this.address = {}
+
+      this.id = '_' + Math.random().toString(36).substr(2, 9)
 
       this.autoCompleteStyle = {
         maxWidth: props.maxWidth || "100%"
@@ -143,8 +146,22 @@ class Address extends React.Component {
               style={this.autoCompleteStyle}
               placeholder={this.props.placeholder || 'Enter address'}
               defaultValue={this.state.defaultValue || ''}
+              id={this.id}
+              name={this.id}
             />
-
+            {/*
+            <ReactCustomGoogleAutocomplete
+              input={<Input
+                      label="Enter address"
+                      />}
+              onPlaceSelected={this.onPlaceSelected}
+              types={['geocode']}
+              className="uikit-text-input uikit-text-input--block"
+              style={this.autoCompleteStyle}
+              placeholder={this.props.placeholder || 'Enter address'}
+              defaultValue={this.state.defaultValue || ''}
+            />
+            */}
         </fieldset>
         {!this.state.cityOnly &&
           <a
