@@ -148,6 +148,7 @@ class Input extends React.Component {
         pattern={this.props.pattern || ""}
         id={this.props.id}
         ref={this.props.inputRef || this.id}
+        placeholder=""
       />
 
       </div>

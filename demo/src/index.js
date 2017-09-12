@@ -11,6 +11,7 @@ class Demo extends React.Component {
       super(props)
 
       this.state = {
+        city:''
       }
 
       this.address = {
@@ -31,6 +32,12 @@ class Demo extends React.Component {
     console.log(address)
   }
 
+  onChangeCity = (city) => {
+    this.setState((prevState, props) => ({
+      city: city
+    }))
+  }
+
   render() {
     return (
       <MuiThemeProvider>
@@ -38,7 +45,9 @@ class Demo extends React.Component {
 
         <h1>address-autocomplete Demo</h1>
         <Component
-          onChange={this.onChange} />
+          onChange={this.onChange}
+          label="Client address"
+        />
 
         <h2>Pre-populated address</h2>
         <Component
@@ -47,8 +56,8 @@ class Demo extends React.Component {
 
         <h2>City only</h2>
         <Component
-          value={this.city}
-          onChange={this.onChange}
+          value={this.state.city}
+          onChange={this.onChangeCity}
           type="city"
           label="Discharge city"
           placeholder="Enter city name"

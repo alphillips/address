@@ -44,13 +44,13 @@ class Address extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.value){
+    if(this.props.value && !this.state.cityOnly){
       this.populateAddress(this.props.value)
     }
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.value){
+    if(nextProps.value && !this.state.cityOnly){
       this.populateAddress(nextProps.value)
     }
   }
@@ -137,17 +137,17 @@ class Address extends React.Component {
     return (
       <div>
         <fieldset className="address-field">
-          <legend>{this.props.label || 'Address'}</legend>
+
 
             <Autocomplete
               onPlaceSelected={this.onPlaceSelected}
               types={['geocode']}
               className="uikit-text-input uikit-text-input--block"
               style={this.autoCompleteStyle}
-              placeholder={this.props.placeholder || 'Enter address'}
               defaultValue={this.state.defaultValue || ''}
               id={this.id}
               name={this.id}
+              label={this.props.label || 'Address'}
             />
             {/*
             <ReactCustomGoogleAutocomplete
