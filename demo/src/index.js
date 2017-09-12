@@ -22,6 +22,8 @@ class Demo extends React.Component {
         postcode:'151-0071',
         country:'JP'
       }
+
+      this.city = ''
   }
 
   onChange = (address) => {
@@ -35,10 +37,20 @@ class Demo extends React.Component {
       <div>
 
         <h1>address-autocomplete Demo</h1>
-        <Component onChange={this.onChange} country="au"/>
+        <Component onChange={this.onChange}/>
 
         <h2>Pre-populated address</h2>
         <Component value={this.address} onChange={this.onChange}/>
+
+        <h2>City only</h2>
+        <Component
+          value={this.city}
+          onChange={this.onChange}
+          type="city"
+          label="Discharge city"
+          placeholder="Enter city name"
+          defaultValue="Paris"
+        />
 
       </div>
       </MuiThemeProvider>
