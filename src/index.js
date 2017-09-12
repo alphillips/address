@@ -23,7 +23,9 @@ class Address extends React.Component {
         postcode:'',
         country:'',
         enterManually:false,
-        enterMauallyText:'Enter address manually'
+        enterMauallyText:'Enter address manually',
+        cityOnly:props.type === 'city',
+        defaultValue:props.defaultValue || ''
       }
       this.address = {}
 
@@ -105,7 +107,11 @@ class Address extends React.Component {
     this.address.country=address.country
 
     if(this.props.onChange){
-      this.props.onChange(this.address)
+      if(this.state.cityOnly){
+        this.props.onChange(this.address.city)
+      } else {
+        this.props.onChange(this.address)
+      }
     }
   }
 
@@ -135,16 +141,18 @@ class Address extends React.Component {
               types={['geocode']}
               className="uikit-text-input uikit-text-input--block"
               style={this.autoCompleteStyle}
-              placeholder="Enter address"
-              componentRestrictions={componentRestrictions}
+              placeholder={this.props.placeholder || 'Enter address'}
+              defaultValue={this.state.defaultValue || ''}
             />
 
         </fieldset>
-        <a
-          href="#"
-          style={this.linkStyle}
-          onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
-        </a>
+        {!this.state.cityOnly &&
+          <a
+            href="#"
+            style={this.linkStyle}
+            onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
+          </a>
+        }
 
         {this.state.enterManually &&
         <div>
@@ -192,14 +200,6 @@ class Address extends React.Component {
             maxWidth="100px"
           />
 
-          <ReferenceDataSelector
-            id="country-selector"
-            label="Country"
-            placeholder="Select country"
-            type="country"
-            onChange={this.onChange('country')}
-            value={this.state.country}
-          />
 
         </div>
         }
