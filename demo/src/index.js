@@ -69,7 +69,6 @@ class Demo extends React.Component {
           type="city"
           label="Discharge city"
           placeholder="Enter city name"
-          defaultValue="Paris"
         />
 
       </div>

@@ -17,7 +17,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
     super(props);
     this.autocomplete = null;
     this.state = {
-      value:''
+      value:props.defaultValue || ''
     }
   }
 
@@ -35,6 +35,21 @@ export default class ReactGoogleAutocomplete extends React.Component {
     this.autocomplete = new google.maps.places.Autocomplete(document.getElementById(this.props.id), config);
 
     this.autocomplete.addListener('place_changed', this.onSelected.bind(this));
+
+
+    if(this.props.defaultValue){
+      this.setState((prevState, props) => ({
+        value: this.props.defaultValue
+      }))
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.defaultValue){
+      this.setState((prevState, props) => ({
+        value: nextProps.defaultValue
+      }))
+    }
   }
 
   onSelected() {
@@ -57,6 +72,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
           id={this.props.id}
           name={this.props.name}
           value={this.state.value}
+
         />
       </div>
     );
