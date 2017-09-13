@@ -61,11 +61,11 @@ class Address extends React.Component {
         this.populateAddress(nextProps.value)
       }
     }
-    if(this.props.value && this.state.cityOnly){
+    if(nextProps.value && this.state.cityOnly){
       this.setState((prevState, props) => ({
-        defaultValue: this.props.value
+        defaultValue: nextProps.value
       }))
-    }    
+    }
     // if(nextProps.value && !this.state.cityOnly){
     //   this.populateAddress(nextProps.value)
     // }
