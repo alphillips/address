@@ -11,7 +11,8 @@ class Demo extends React.Component {
       super(props)
 
       this.state = {
-        city:''
+        city:'Paris',
+        address1:''
       }
 
       this.address = {
@@ -32,6 +33,12 @@ class Demo extends React.Component {
     console.log(address)
   }
 
+  onChangeAddress1 = (address) => {
+    this.setState((prevState, props) => ({
+      address1: address
+    }))
+  }
+
   onChangeCity = (city) => {
     this.setState((prevState, props) => ({
       city: city
@@ -45,7 +52,8 @@ class Demo extends React.Component {
 
         <h1>address-autocomplete Demo</h1>
         <Component
-          onChange={this.onChange}
+          value={this.state.address1}
+          onChange={this.onChangeAddress1}
           label="Client address"
         />
 

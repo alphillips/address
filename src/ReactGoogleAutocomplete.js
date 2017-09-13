@@ -9,12 +9,16 @@ export default class ReactGoogleAutocomplete extends React.Component {
     onPlaceSelected: PropTypes.func,
     types: PropTypes.array,
     componentRestrictions: PropTypes.object,
-    bounds: PropTypes.object,
+    bounds: PropTypes.object
+
   }
 
   constructor(props) {
     super(props);
     this.autocomplete = null;
+    this.state = {
+      value:''
+    }
   }
 
   componentDidMount() {
@@ -35,6 +39,9 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
   onSelected() {
     if (this.props.onPlaceSelected) {
+      this.setState((prevState, props) => ({
+        value: this.autocomplete.getPlace().formatted_address
+      }))
       this.props.onPlaceSelected(this.autocomplete.getPlace());
     }
   }
@@ -49,6 +56,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
           {...rest}
           id={this.props.id}
           name={this.props.name}
+          value={this.state.value}
         />
       </div>
     );

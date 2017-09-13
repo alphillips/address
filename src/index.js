@@ -47,12 +47,33 @@ class Address extends React.Component {
     if(this.props.value && !this.state.cityOnly){
       this.populateAddress(this.props.value)
     }
+    if(this.props.value && this.state.cityOnly){
+      this.setState((prevState, props) => ({
+        defaultValue: this.props.value
+      }))
+    }
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.value && !this.state.cityOnly){
-      this.populateAddress(nextProps.value)
+    // only open manual if no text is in Address field
+    if(this.getAddressEntryFieldText().trim().length < 1){
+      if(nextProps.value && !this.state.cityOnly){
+        this.populateAddress(nextProps.value)
+      }
     }
+    if(this.props.value && this.state.cityOnly){
+      this.setState((prevState, props) => ({
+        defaultValue: this.props.value
+      }))
+    }    
+    // if(nextProps.value && !this.state.cityOnly){
+    //   this.populateAddress(nextProps.value)
+    // }
+    // if(this.props.value && this.state.cityOnly){
+    //   this.setState((prevState, props) => ({
+    //     defaultValue: this.props.value
+    //   }))
+    // }
   }
 
   populateAddress(data){
@@ -124,6 +145,10 @@ class Address extends React.Component {
       enterManually: !prevState.enterManually,
       enterMauallyText: (prevState.enterManually ? 'Enter address manually' : 'Close manual address')
     }))
+  }
+
+  getAddressEntryFieldText = () => {
+    return document.getElementById(this.id).value
   }
 
   render() {
