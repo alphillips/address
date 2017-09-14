@@ -78,17 +78,58 @@ class Address extends React.Component {
 
   populateAddress(data){
     if(data){
+      let address = ''
+      if(data.addressLine1 && data.addressLine1.trim().length > 0){
+        address += data.addressLine1
+      }
+      if(data.addressLine2 && data.addressLine2.trim().length > 0){
+        address += ' ' + data.addressLine2
+      }
+      if(data.addressLine3 && data.addressLine3.trim().length > 0){
+        address += ' ' + data.addressLine3
+      }
+      if(address !== ''){
+        address += ', '
+      }
+      address += data.city + ' ' + data.state + ' ' + data.postcode
+      //address += data.country
       this.setState((prevState, props) => ({
-        enterManually: true,
-        enterMauallyText: 'Close manual address',
-        addressLine1:data.addressLine1,
-        addressLine2:data.addressLine2,
-        addressLine3:data.addressLine3,
-        city:data.city,
-        state:data.state,
-        postcode:data.postcode,
-        country:data.country
+        defaultValue: address
       }))
+      let countryCode = data.country
+      // get the country
+      let urlPrefix = this.host + '/api/refdata/'
+      fetch(urlPrefix + 'country', { credentials: 'same-origin' }).then(
+        response => {
+          if (response.status === 200) {
+            response.text().then(data => {
+              let parsedData = JSON.parse(data)
+              if(countryCode){
+                let text = parsedData.find((item) =>  item.value.toLowerCase() === countryCode.toLowerCase())
+                if(text.label){
+                  address += ', ' + data.country
+                  this.setState({
+                    defaultValue: address
+                  })
+                }
+              }
+            })
+          }
+        }
+      )
+
+
+      // this.setState((prevState, props) => ({
+      //   enterManually: true,
+      //   enterMauallyText: 'Close manual address',
+      //   addressLine1:data.addressLine1,
+      //   addressLine2:data.addressLine2,
+      //   addressLine3:data.addressLine3,
+      //   city:data.city,
+      //   state:data.state,
+      //   postcode:data.postcode,
+      //   country:data.country
+      // }))
       this.address = data
     }
   }
@@ -153,10 +194,16 @@ class Address extends React.Component {
 
   render() {
 
-    let componentRestrictions = {}
+    // let componentRestrictions = {}
 
+    // if(this.props.country){
+    //   componentRestrictions.country = this.props.country
+    // }
+
+    let otherProps = {}
     if(this.props.country){
-      componentRestrictions.country = this.props.country
+      otherProps.componentRestrictions = {}
+      otherProps.componentRestrictions.country = this.props.country
     }
 
     return (
@@ -173,6 +220,7 @@ class Address extends React.Component {
               id={this.id}
               name={this.id}
               label={this.props.label || 'Address'}
+              {...otherProps}
             />
             {/*
             <ReactCustomGoogleAutocomplete
@@ -242,6 +290,14 @@ class Address extends React.Component {
             maxWidth="100px"
           />
 
+          <ReferenceDataSelector
+            id="country-selector"
+            label="Country"
+            placeholder="Select country"
+            type="country"
+            onChange={this.onChange('country')}
+            value={this.state.country}
+          />
 
         </div>
         }

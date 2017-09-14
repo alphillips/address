@@ -16,9 +16,9 @@ class Demo extends React.Component {
       }
 
       this.address = {
-        addressline1:'7 Honmachi',
-        addressline2:'',
-        addressline3:'',
+        addressLine1:'7 Honmachi',
+        addressLine2:'',
+        addressLine3:'',
         city:'Shibuya-ku',
         state:'Tōkyō-to',
         postcode:'151-0071',
@@ -55,12 +55,14 @@ class Demo extends React.Component {
           value={this.state.address1}
           onChange={this.onChangeAddress1}
           label="Client address"
+          country="au"
         />
 
         <h2>Pre-populated address</h2>
         <Component
           value={this.address}
-          onChange={this.onChange}/>
+          onChange={this.onChange}
+          />
 
         <h2>City only</h2>
         <Component
