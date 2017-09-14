@@ -98,7 +98,7 @@ class Address extends React.Component {
       }))
       let countryCode = data.country
       // get the country
-      let urlPrefix = this.host + '/api/refdata/'
+      let urlPrefix = (process.env.API_HOST || '') + '/api/refdata/'
       fetch(urlPrefix + 'country', { credentials: 'same-origin' }).then(
         response => {
           if (response.status === 200) {
