@@ -107,7 +107,7 @@ class Address extends React.Component {
               if(countryCode){
                 let text = parsedData.find((item) =>  item.value.toLowerCase() === countryCode.toLowerCase())
                 if(text.label){
-                  address += ', ' + data.country
+                  address += ', ' + text.label
                   this.setState({
                     defaultValue: address
                   })
