@@ -19,13 +19,13 @@ class Address extends React.Component {
         addressLine1:'',
         addressLine2:'',
         addressLine3:'',
-        city:'',
+        suburb:'',
         state:'',
         postcode:'',
         country:'',
         enterManually:false,
         enterMauallyText:'Enter address manually',
-        cityOnly:props.type === 'city',
+        suburbOnly:props.type === 'suburb',
         defaultValue:props.defaultValue || ''
       }
       this.address = {}
@@ -44,10 +44,10 @@ class Address extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.value && !this.state.cityOnly){
+    if(this.props.value && !this.state.suburbOnly){
       this.populateAddress(this.props.value)
     }
-    if(this.props.value && this.state.cityOnly){
+    if(this.props.value && this.state.suburbOnly){
       this.setState((prevState, props) => ({
         defaultValue: this.props.value
       }))
@@ -57,19 +57,19 @@ class Address extends React.Component {
   componentWillReceiveProps(nextProps){
     // only open manual if no text is in Address field
     if(this.getAddressEntryFieldText().trim().length < 1){
-      if(nextProps.value && !this.state.cityOnly){
+      if(nextProps.value && !this.state.suburbOnly){
         this.populateAddress(nextProps.value)
       }
     }
-    if(nextProps.value && this.state.cityOnly){
+    if(nextProps.value && this.state.suburbOnly){
       this.setState((prevState, props) => ({
         defaultValue: nextProps.value
       }))
     }
-    // if(nextProps.value && !this.state.cityOnly){
+    // if(nextProps.value && !this.state.suburbOnly){
     //   this.populateAddress(nextProps.value)
     // }
-    // if(this.props.value && this.state.cityOnly){
+    // if(this.props.value && this.state.suburbOnly){
     //   this.setState((prevState, props) => ({
     //     defaultValue: this.props.value
     //   }))
@@ -91,7 +91,7 @@ class Address extends React.Component {
       if(address !== ''){
         address += ', '
       }
-      address += data.city + ' ' + data.state + ' ' + data.postcode
+      address += data.suburb + ' ' + data.state + ' ' + data.postcode
       //address += data.country
       this.setState((prevState, props) => ({
         defaultValue: address
@@ -125,7 +125,7 @@ class Address extends React.Component {
       //   addressLine1:data.addressLine1,
       //   addressLine2:data.addressLine2,
       //   addressLine3:data.addressLine3,
-      //   city:data.city,
+      //   suburb:data.suburb,
       //   state:data.state,
       //   postcode:data.postcode,
       //   country:data.country
@@ -166,14 +166,14 @@ class Address extends React.Component {
     this.address.addressLine2='',
     this.address.addressLine3=''
 
-    this.address.city=address.locality
+    this.address.suburb=address.locality
     this.address.state=address.administrative_area_level_1
     this.address.postcode=address.postal_code
     this.address.country=address.country
 
     if(this.props.onChange){
-      if(this.state.cityOnly){
-        this.props.onChange(this.address.city)
+      if(this.state.suburbOnly){
+        this.props.onChange(this.address.suburb)
       } else {
         this.props.onChange(this.address)
       }
@@ -236,7 +236,7 @@ class Address extends React.Component {
             />
             */}
         </fieldset>
-        {!this.state.cityOnly &&
+        {!this.state.suburbOnly &&
           <a
             href="#"
             style={this.linkStyle}
@@ -268,14 +268,14 @@ class Address extends React.Component {
           />
 
           <Input
-            label="City/Town"
-            id="city"
-            value={this.state.city}
-            onChange={this.onChange('city')}
+            label="Suburb"
+            id="suburb"
+            value={this.state.suburb}
+            onChange={this.onChange('suburb')}
           />
 
           <Input
-            label="State/Region"
+            label="State"
             id="state"
             value={this.state.state}
             onChange={this.onChange('state')}
