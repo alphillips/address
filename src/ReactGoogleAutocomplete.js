@@ -10,14 +10,16 @@ export default class ReactGoogleAutocomplete extends React.Component {
     types: PropTypes.array,
     componentRestrictions: PropTypes.object,
     bounds: PropTypes.object
-
   }
 
   constructor(props) {
     super(props);
     this.autocomplete = null;
     this.state = {
-      value:props.defaultValue || ''
+      manualvalue: props.manualvalue,
+      value:props.defaultValue || '',
+      dirty: false,
+      disabled: props.disabled
     }
   }
 
@@ -36,7 +38,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
     this.autocomplete.addListener('place_changed', this.onSelected.bind(this));
 
-
     if(this.props.defaultValue){
       this.setState((prevState, props) => ({
         value: this.props.defaultValue
@@ -45,9 +46,22 @@ export default class ReactGoogleAutocomplete extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.defaultValue){
+    if(nextProps.defaultValue && !this.state.dirty){
       this.setState((prevState, props) => ({
         value: nextProps.defaultValue
+      }))
+    }
+    this.setState((prevState, props) => ({
+      disabled: nextProps.disabled,
+      manualvalue: nextProps.manualvalue
+    }))
+    if(!this.state.disabled) {
+      this.setState((prevState, props) => ({
+        value: this.state.defaultValue
+      }))
+    }else {
+      this.setState((prevState, props) => ({
+        value: this.state.manualvalue
       }))
     }
   }
@@ -55,7 +69,8 @@ export default class ReactGoogleAutocomplete extends React.Component {
   onSelected() {
     if (this.props.onPlaceSelected) {
       this.setState((prevState, props) => ({
-        value: this.autocomplete.getPlace().formatted_address
+        value: this.autocomplete.getPlace().formatted_address,
+        dirty: true
       }))
       this.props.onPlaceSelected(this.autocomplete.getPlace());
     }
@@ -63,7 +78,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
   render() {
     const {onPlaceSelected, types, componentRestrictions, bounds, ...rest} = this.props;
-
     return (
       <div>
         <Input
@@ -71,8 +85,8 @@ export default class ReactGoogleAutocomplete extends React.Component {
           {...rest}
           id={this.props.id}
           name={this.props.name}
-          value={this.state.value}
-
+          value={this.state.disabled ? this.state.manualvalue : this.state.value }
+          disabled = {this.state.disabled}
         />
       </div>
     );
