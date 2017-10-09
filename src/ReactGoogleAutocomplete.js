@@ -1,4 +1,3 @@
-// based on https://github.com/ErrorPro/react-google-autocomplete
 import React from 'react';
 import PropTypes from 'prop-types';
 // import Input from '@react-ag-components/input'
@@ -55,18 +54,16 @@ export default class ReactGoogleAutocomplete extends React.Component {
       disabled: nextProps.disabled,
       manualvalue: nextProps.manualvalue
     }))
-    if(!this.state.disabled) {
-      this.setState((prevState, props) => ({
-        value: this.state.defaultValue
-      }))
-    }else {
-      this.setState((prevState, props) => ({
-        value: this.state.manualvalue
-      }))
-    }
+  }
+
+  onChange = () => {
+    this.setState((prevState, props) => ({
+      value: this.state.defaultValue
+    }))
   }
 
   onSelected() {
+
     if (this.props.onPlaceSelected) {
       this.setState((prevState, props) => ({
         value: this.autocomplete.getPlace().formatted_address,
@@ -86,7 +83,8 @@ export default class ReactGoogleAutocomplete extends React.Component {
           id={this.props.id}
           name={this.props.name}
           value={this.state.disabled ? this.state.manualvalue : this.state.value }
-          disabled = {this.state.disabled}
+          disabled={this.state.disabled}
+          onChange={this.onChange}
         />
       </div>
     );
