@@ -17,7 +17,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
     this.state = {
       manualValue: props.manualValue,
       value:props.defaultValue || '',
-      dirty: false,
       disabled: props.disabled,
       required: true,
       resetValue:''
@@ -68,8 +67,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
     if (this.props.onPlaceSelected) {
       this.setState((prevState, props) => ({
-        value: this.autocomplete.getPlace().formatted_address,
-        dirty: true
+        value: this.autocomplete.getPlace().formatted_address
       }))
       this.props.onPlaceSelected(this.autocomplete.getPlace());
     }
