@@ -47,7 +47,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.defaultValue && !this.state.dirty){
+    if(nextProps.defaultValue){
       this.setState((prevState, props) => ({
         value: nextProps.defaultValue
       }))
