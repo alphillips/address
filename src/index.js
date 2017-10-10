@@ -27,7 +27,7 @@ class Address extends React.Component {
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
         defaultValue:props.defaultValue || '',
-        manualvalue: ''
+        manualValue: ''
       }
       // the version in google search textfield
       this.address = {}
@@ -227,7 +227,7 @@ class Address extends React.Component {
               name={this.id}
               label={this.props.label || 'Address'}
               disabled = {this.state.enterManually}
-              manualvalue = {addressLine1 + addressLine2 + addressLine3 + suburb + state + postcode + country}
+              manualValue = {addressLine1 + addressLine2 + addressLine3 + suburb + state + postcode + country}
               onChange = {this.onChange()}
               {...otherProps}
             />
