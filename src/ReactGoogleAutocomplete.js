@@ -18,7 +18,9 @@ export default class ReactGoogleAutocomplete extends React.Component {
       manualValue: props.manualValue,
       value:props.defaultValue || '',
       dirty: false,
-      disabled: props.disabled
+      disabled: props.disabled,
+      required: true,
+      resetValue:''
     }
   }
 
@@ -58,7 +60,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
   onChange = () => {
     this.setState((prevState, props) => ({
-      value: this.state.defaultValue
+      value: this.state.resetValue
     }))
   }
 
@@ -85,6 +87,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
           value={this.state.disabled ? this.state.manualValue : this.state.value }
           disabled={this.state.disabled}
           onChange={this.onChange}
+          required={this.state.required}
         />
       </div>
     );

@@ -26,6 +26,7 @@ class Address extends React.Component {
         enterManually:props.enterManually,
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
+        // props.defaultVAlue still used?
         defaultValue:props.defaultValue || '',
         manualValue: ''
       }
@@ -56,17 +57,14 @@ class Address extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    // only open manual if no text is in Address field
-    if(this.getAddressEntryFieldText().trim().length < 1){
-      if(nextProps.value && !this.state.suburbOnly){
-        this.populateAddress(nextProps.value)
-      }
+    if(nextProps.value && !this.state.suburbOnly){
+      this.populateAddress(nextProps.value)
     }
-    if(nextProps.value && this.state.suburbOnly){
-      this.setState((prevState, props) => ({
-        defaultValue: nextProps.value
-      }))
-    }
+    // if(nextProps.value && this.state.suburbOnly){
+    //   this.setState((prevState, props) => ({
+    //     defaultValue: nextProps.value
+    //   }))
+    // }
     // if(nextProps.value && !this.state.suburbOnly){
     //   this.populateAddress(nextProps.value)
     // }
@@ -92,7 +90,15 @@ class Address extends React.Component {
       if(address !== ''){
         address += ', '
       }
-      address += data.suburb + ' ' + data.state + ' ' + data.postcode
+      if(data.suburb && data.suburb.trim().length > 0){
+        address += ' ' + data.suburb
+      }
+      if(data.state && data.state.trim().length > 0){
+        address += ' ' + data.state
+      }
+      if(data.postcode && data.postcode.trim().length > 0){
+        address += ' ' + data.postcode
+      }
       //address += data.country
       this.setState((prevState, props) => ({
         defaultValue: address
