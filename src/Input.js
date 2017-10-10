@@ -150,7 +150,6 @@ class Input extends React.Component {
         placeholder=""
         className={this.props.class || ""}
         type={this.props.type || "text"}
-        disabled={this.props.disabled}
       />
 
       </div>
