@@ -1,4 +1,3 @@
-// based on https://github.com/ErrorPro/react-google-autocomplete
 import React from 'react';
 import PropTypes from 'prop-types';
 // import Input from '@react-ag-components/input'
@@ -10,14 +9,18 @@ export default class ReactGoogleAutocomplete extends React.Component {
     types: PropTypes.array,
     componentRestrictions: PropTypes.object,
     bounds: PropTypes.object
-
   }
 
   constructor(props) {
     super(props);
     this.autocomplete = null;
     this.state = {
-      value:props.defaultValue || ''
+      manualValue: props.manualValue,
+      value:props.defaultValue || '',
+      dirty: false,
+      disabled: props.disabled,
+      required: true,
+      resetValue:''
     }
   }
 
@@ -36,7 +39,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
     this.autocomplete.addListener('place_changed', this.onSelected.bind(this));
 
-
     if(this.props.defaultValue){
       this.setState((prevState, props) => ({
         value: this.props.defaultValue
@@ -50,12 +52,24 @@ export default class ReactGoogleAutocomplete extends React.Component {
         value: nextProps.defaultValue
       }))
     }
+    this.setState((prevState, props) => ({
+      disabled: nextProps.disabled,
+      manualValue: nextProps.manualValue
+    }))
+  }
+
+  onChange = () => {
+    this.setState((prevState, props) => ({
+      value: this.state.resetValue
+    }))
   }
 
   onSelected() {
+
     if (this.props.onPlaceSelected) {
       this.setState((prevState, props) => ({
-        value: this.autocomplete.getPlace().formatted_address
+        value: this.autocomplete.getPlace().formatted_address,
+        dirty: true
       }))
       this.props.onPlaceSelected(this.autocomplete.getPlace());
     }
@@ -63,7 +77,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
   render() {
     const {onPlaceSelected, types, componentRestrictions, bounds, ...rest} = this.props;
-
     return (
       <div>
         <Input
@@ -71,8 +84,10 @@ export default class ReactGoogleAutocomplete extends React.Component {
           {...rest}
           id={this.props.id}
           name={this.props.name}
-          value={this.state.value}
-
+          value={this.state.disabled ? this.state.manualValue : this.state.value }
+          disabled={this.state.disabled}
+          onChange={this.onChange}
+          required={this.state.required}
         />
       </div>
     );

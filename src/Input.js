@@ -97,7 +97,6 @@ class Input extends React.Component {
 
 
   render() {
-
     const styles = {
       hintStyle: {
         color: '#999',
@@ -149,6 +148,8 @@ class Input extends React.Component {
         id={this.props.id}
         ref={this.props.inputRef || this.id}
         placeholder=""
+        className={this.props.class || ""}
+        type={this.props.type || "text"}
       />
 
       </div>

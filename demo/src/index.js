@@ -5,7 +5,7 @@ import Component from '../../src'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-class Demo extends React.Component {
+class Demo extends Component {
 
   constructor(props) {
       super(props)
@@ -27,7 +27,7 @@ class Demo extends React.Component {
 
       this.city = ''
   }
-
+  
   onChange = (address) => {
     console.log('got address')
     console.log(address)
@@ -45,17 +45,21 @@ class Demo extends React.Component {
     }))
   }
 
+  handleNext = () => {
+      hashHistory.push('/' )
+  }
+
   render() {
     return (
       <MuiThemeProvider>
       <div>
-
         <h1>address-autocomplete Demo</h1>
         <Component
           value={this.state.address1}
           onChange={this.onChangeAddress1}
           label="Client address"
           country="au"
+          enterManually = {this.state.enterManually}
         />
 
         <h2>Pre-populated address</h2>
