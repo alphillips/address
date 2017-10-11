@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Input from '@react-ag-components/input'
 import Input from './Input.js'
 
 export default class ReactGoogleAutocomplete extends React.Component {
@@ -46,14 +45,10 @@ export default class ReactGoogleAutocomplete extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.defaultValue){
-      this.setState((prevState, props) => ({
-        value: nextProps.defaultValue
-      }))
-    }
     this.setState((prevState, props) => ({
       disabled: nextProps.disabled,
-      manualValue: nextProps.manualValue
+      manualValue: nextProps.manualValue,
+      value: nextProps.defaultValue
     }))
   }
 
