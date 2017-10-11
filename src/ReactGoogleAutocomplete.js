@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Input from '@react-ag-components/input'
 import Input from './Input.js'
 
 export default class ReactGoogleAutocomplete extends React.Component {
@@ -17,7 +16,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
     this.state = {
       manualValue: props.manualValue,
       value:props.defaultValue || '',
-      dirty: false,
       disabled: props.disabled,
       required: true,
       resetValue:''
@@ -47,14 +45,10 @@ export default class ReactGoogleAutocomplete extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.defaultValue){
-      this.setState((prevState, props) => ({
-        value: nextProps.defaultValue
-      }))
-    }
     this.setState((prevState, props) => ({
       disabled: nextProps.disabled,
-      manualValue: nextProps.manualValue
+      manualValue: nextProps.manualValue,
+      value: nextProps.defaultValue
     }))
   }
 
@@ -68,8 +62,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
 
     if (this.props.onPlaceSelected) {
       this.setState((prevState, props) => ({
-        value: this.autocomplete.getPlace().formatted_address,
-        dirty: true
+        value: this.autocomplete.getPlace().formatted_address
       }))
       this.props.onPlaceSelected(this.autocomplete.getPlace());
     }

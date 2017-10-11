@@ -27,7 +27,7 @@ class Demo extends Component {
 
       this.city = ''
   }
-  
+
   onChange = (address) => {
     console.log('got address')
     console.log(address)
@@ -59,7 +59,6 @@ class Demo extends Component {
           onChange={this.onChangeAddress1}
           label="Client address"
           country="au"
-          enterManually = {this.state.enterManually}
         />
 
         <h2>Pre-populated address</h2>

@@ -23,11 +23,10 @@ class Address extends React.Component {
         state:'',
         postcode:'',
         country:'',
-        enterManually:props.enterManually,
+        enterManually:false,
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
-        // props.defaultVAlue still used?
-        defaultValue:props.defaultValue || '',
+        defaultValue: '',
         manualValue: ''
       }
       // the version in google search textfield
