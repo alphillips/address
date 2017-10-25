@@ -28,8 +28,7 @@ class Address extends React.Component {
         suburbOnly:props.type === 'suburb',
         defaultValue: '',
         manualValue: '',
-        localOnly: props.localOnly || false,
-        disabled: true
+        localOnly: props.country || false
       }
       // the version in google search textfield
       this.address = {}
@@ -318,7 +317,7 @@ class Address extends React.Component {
         }
         {this.state.localOnly &&
           <Input
-            disabled = {this.state.disabled}
+            disabled = {this.state.localOnly}
             id="country-selector"
             label="Country"
             value="Australia"
