@@ -164,9 +164,9 @@ class Address extends React.Component {
       line1 += address.subpremise + '/'
     }
     if(address.street_number){
-      line1 += address.street_number
+      line1 += address.street_number + ' '
     }
-    line1 += ' ' + address.route
+    line1 += address.route!=undefined && address.route.trim().length > 0 ? address.route  : ''
     this.address.addressLine1=line1,
     this.address.addressLine2='',
     this.address.addressLine3=''
@@ -304,6 +304,7 @@ class Address extends React.Component {
             maxWidth="100px"
           />
 
+          {!this.state.localOnly &&
           <ReferenceDataSelector
             id="country-selector"
             label="Country"
@@ -312,6 +313,15 @@ class Address extends React.Component {
             onChange={this.onChange('country')}
             value={this.address.country}
           />
+        }
+        {this.state.localOnly &&
+          <Input
+            disabled = {this.state.disabled}
+            id="country-selector"
+            label="Country"
+            value="Australia"
+          />
+        }
 
         </div>
         }
