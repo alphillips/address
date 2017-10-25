@@ -13,36 +13,39 @@ import './styles.css'
 class Address extends React.Component {
 
   constructor(props) {
-      super(props)
+    super(props)
 
-      this.state = {
-        addressLine1:'',
-        addressLine2:'',
-        addressLine3:'',
-        suburb:'',
-        state:'',
-        postcode:'',
-        country:'',
-        enterManually:false,
-        enterMauallyText:'Enter address manually',
-        suburbOnly:props.type === 'suburb',
-        defaultValue: '',
-        manualValue: '',
-        localOnly: props.country || false
-      }
-      // the version in google search textfield
-      this.address = {}
+    this.state = {
+      addressLine1:'',
+      addressLine2:'',
+      addressLine3:'',
+      suburb:'',
+      state:'',
+      postcode:'',
+      country:'',
+      enterManually:false,
+      enterMauallyText:'Enter address manually',
+      suburbOnly:props.type === 'suburb',
+      defaultValue: '',
+      manualValue: '',
+      localOnly: (this.props.country !=="" && this.props.country) || false
+    }
 
-      this.id = '_' + Math.random().toString(36).substr(2, 9)
+    this.australia = "Australia"
+    this.alwaysDisabled = true
+    // the version in google search textfield
+    this.address = {}
 
-      this.autoCompleteStyle = {
-        maxWidth: props.maxWidth || "100%"
-      }
+    this.id = '_' + Math.random().toString(36).substr(2, 9)
 
-      this.linkStyle = {
-        display: "inline-block",
-        marginBottom:"1em"
-      }
+    this.autoCompleteStyle = {
+      maxWidth: props.maxWidth || "100%"
+    }
+
+    this.linkStyle = {
+      display: "inline-block",
+      marginBottom:"1em"
+    }
   }
 
   componentDidMount() {
@@ -317,10 +320,11 @@ class Address extends React.Component {
         }
         {this.state.localOnly &&
           <Input
-            disabled = {this.state.localOnly}
-            id="country-selector"
+            disabled={this.alwaysDisabled}
+            id="country-input"
             label="Country"
-            value="Australia"
+            type="country"
+            value={this.australia}
           />
         }
 
