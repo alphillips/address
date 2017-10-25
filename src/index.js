@@ -27,7 +27,9 @@ class Address extends React.Component {
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
         defaultValue: '',
-        manualValue: ''
+        manualValue: '',
+        localOnly: props.localOnly || false,
+        disabled: true
       }
       // the version in google search textfield
       this.address = {}
