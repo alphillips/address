@@ -20,7 +20,7 @@ class Address extends React.Component {
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
         defaultValue: '',
-        localOnly: (this.props.country !=="" && this.props.country) || false
+        localOnly: (props.country && props.country.toLowerCase()==="au") || false
       }
 
       this.australia = "Australia"
@@ -98,8 +98,6 @@ class Address extends React.Component {
         response => {
           if (response.status === 200) {
             response.text().then(data => {
-              //let stringifyData = JSON.stringify(data)
-              //console.log(stringifyData)
               let parsedData = JSON.parse(data)
               if(countryCode){
                 let text = parsedData.find((item) =>  item.value.toLowerCase() === countryCode.toLowerCase())
