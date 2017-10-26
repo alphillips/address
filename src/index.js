@@ -142,9 +142,9 @@ class Address extends React.Component {
       line1 += address.subpremise + '/'
     }
     if(address.street_number){
-      line1 += address.street_number
+      line1 += address.street_number + ' '
     }
-    line1 += address.route!=undefined && address.route.trim().length > 0 ? ' ' + address.route  : ''
+    line1 += address.route!=undefined && address.route.trim().length > 0 ? address.route  : ''
     this.address.addressLine1=line1,
     this.address.addressLine2='',
     this.address.addressLine3=''
