@@ -1,3 +1,5 @@
+// based on https://github.com/ErrorPro/react-google-autocomplete
+/* eslint-disable no-undef */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input.js'
@@ -14,7 +16,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
     super(props);
     this.autocomplete = null;
     this.state = {
-      manualValue: props.manualValue,
       value:props.defaultValue || '',
       disabled: props.disabled,
       required: true,
@@ -47,7 +48,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState((prevState, props) => ({
       disabled: nextProps.disabled,
-      manualValue: nextProps.manualValue,
       value: nextProps.defaultValue
     }))
   }
@@ -77,7 +77,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
           {...rest}
           id={this.props.id}
           name={this.props.name}
-          value={this.state.disabled ? this.state.manualValue : this.state.value }
+          value={this.state.value }
           disabled={this.state.disabled}
           onChange={this.onChange}
           required={this.state.required}

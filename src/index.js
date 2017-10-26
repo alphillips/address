@@ -13,39 +13,32 @@ import './styles.css'
 class Address extends React.Component {
 
   constructor(props) {
-    super(props)
+      super(props)
 
-    this.state = {
-      addressLine1:'',
-      addressLine2:'',
-      addressLine3:'',
-      suburb:'',
-      state:'',
-      postcode:'',
-      country:'',
-      enterManually:false,
-      enterMauallyText:'Enter address manually',
-      suburbOnly:props.type === 'suburb',
-      defaultValue: '',
-      manualValue: '',
-      localOnly: (this.props.country !=="" && this.props.country) || false
-    }
+      this.state = {
+        enterManually:false,
+        enterMauallyText:'Enter address manually',
+        suburbOnly:props.type === 'suburb',
+        defaultValue: '',
+        manualValue: '',
+        localOnly: (this.props.country !=="" && this.props.country) || false
+      }
 
-    this.australia = "Australia"
-    this.alwaysDisabled = true
-    // the version in google search textfield
-    this.address = {}
+      this.australia = "Australia"
+      this.alwaysDisabled = true
+      // the version in google search textfield
+      this.address = {}
 
-    this.id = '_' + Math.random().toString(36).substr(2, 9)
+      this.id = '_' + Math.random().toString(36).substr(2, 9)
 
-    this.autoCompleteStyle = {
-      maxWidth: props.maxWidth || "100%"
-    }
+      this.autoCompleteStyle = {
+        maxWidth: props.maxWidth || "100%"
+      }
 
-    this.linkStyle = {
-      display: "inline-block",
-      marginBottom:"1em"
-    }
+      this.linkStyle = {
+        display: "inline-block",
+        marginBottom:"1em"
+      }
   }
 
   componentDidMount() {
@@ -63,24 +56,12 @@ class Address extends React.Component {
     if(nextProps.value && !this.state.suburbOnly){
       this.populateAddress(nextProps.value)
     }
-    // if(nextProps.value && this.state.suburbOnly){
-    //   this.setState((prevState, props) => ({
-    //     defaultValue: nextProps.value
-    //   }))
-    // }
-    // if(nextProps.value && !this.state.suburbOnly){
-    //   this.populateAddress(nextProps.value)
-    // }
-    // if(this.props.value && this.state.suburbOnly){
-    //   this.setState((prevState, props) => ({
-    //     defaultValue: this.props.value
-    //   }))
-    // }
   }
 
   populateAddress(data){
     if(data){
       let address = ''
+
       if(data.addressLine1 && data.addressLine1.trim().length > 0){
         address += data.addressLine1
       }
@@ -102,6 +83,11 @@ class Address extends React.Component {
       if(data.postcode && data.postcode.trim().length > 0){
         address += ' ' + data.postcode
       }
+
+      if (this.props.country && this.props.country !== "") {
+        data.country = this.props.country
+      }
+
       //address += data.country
       this.setState((prevState, props) => ({
         defaultValue: address
@@ -113,8 +99,9 @@ class Address extends React.Component {
         response => {
           if (response.status === 200) {
             response.text().then(data => {
-              let stringifyData = JSON.stringify(data)
-              let parsedData = JSON.parse(stringifyData)
+              //let stringifyData = JSON.stringify(data)
+              //console.log(stringifyData)
+              let parsedData = JSON.parse(data)
               if(countryCode){
                 let text = parsedData.find((item) =>  item.value.toLowerCase() === countryCode.toLowerCase())
                 if(text.label){
@@ -129,17 +116,6 @@ class Address extends React.Component {
         }
       )
 
-      // this.setState((prevState, props) => ({
-      //   enterManually: true,
-      //   enterMauallyText: 'Close manual address',
-      //   addressLine1:data.addressLine1,
-      //   addressLine2:data.addressLine2,
-      //   addressLine3:data.addressLine3,
-      //   suburb:data.suburb,
-      //   state:data.state,
-      //   postcode:data.postcode,
-      //   country:data.country
-      // }))
       this.address = data
     }
   }
@@ -168,9 +144,9 @@ class Address extends React.Component {
       line1 += address.subpremise + '/'
     }
     if(address.street_number){
-      line1 += address.street_number + ' '
+      line1 += address.street_number
     }
-    line1 += address.route!=undefined && address.route.trim().length > 0 ? address.route  : ''
+    line1 += address.route!=undefined && address.route.trim().length > 0 ? ' ' + address.route  : ''
     this.address.addressLine1=line1,
     this.address.addressLine2='',
     this.address.addressLine3=''
@@ -203,24 +179,11 @@ class Address extends React.Component {
 
   render() {
 
-    // let componentRestrictions = {}
-
-    // if(this.props.country){
-    //   componentRestrictions.country = this.props.country
-    // }
-
     let otherProps = {}
     if(this.props.country){
       otherProps.componentRestrictions = {}
       otherProps.componentRestrictions.country = this.props.country
     }
-    let addressLine1 =  this.address["addressLine1"] !== undefined ? this.address["addressLine1"] + ", " : ""
-    let addressLine2 =  this.address["addressLine2"] !== undefined ? this.address["addressLine2"] + ", " : ""
-    let addressLine3 =  this.address["addressLine3"] !== undefined ? this.address["addressLine3"] + ", " : ""
-    let suburb =  this.address["suburb"] !== undefined ? this.address["suburb"] + ", " : ""
-    let state =  this.address["state"] !== undefined ? this.address["state"] + ", " : ""
-    let postcode =  this.address["postcode"] !== undefined ? this.address["postcode"] + ", " : ""
-    let country =  this.address["country"] !== undefined ? this.address["country"] : ""
 
     return (
       <div>
@@ -236,23 +199,10 @@ class Address extends React.Component {
               name={this.id}
               label={this.props.label || 'Address'}
               disabled = {this.state.enterManually}
-              manualValue = {addressLine1 + addressLine2 + addressLine3 + suburb + state + postcode + country}
               onChange = {this.onChange()}
               {...otherProps}
             />
-            {/*
-            <ReactCustomGoogleAutocomplete
-              input={<Input
-                      label="Enter address"
-                      />}
-              onPlaceSelected={this.onPlaceSelected}
-              types={['geocode']}
-              className="uikit-text-input uikit-text-input--block"
-              style={this.autoCompleteStyle}
-              placeholder={this.props.placeholder || 'Enter address'}
-              defaultValue={this.state.defaultValue || ''}
-            />
-            */}
+
         </fieldset>
         {!this.state.suburbOnly &&
           <a
@@ -308,7 +258,7 @@ class Address extends React.Component {
             maxWidth="100px"
           />
 
-          {!this.state.localOnly &&
+        {!this.state.localOnly &&
           <ReferenceDataSelector
             id="country-selector"
             label="Country"
