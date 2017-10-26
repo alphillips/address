@@ -20,7 +20,6 @@ class Address extends React.Component {
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
         defaultValue: '',
-        manualValue: '',
         localOnly: (this.props.country !=="" && this.props.country) || false
       }
 
