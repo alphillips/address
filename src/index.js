@@ -16,6 +16,7 @@ class Address extends React.Component {
       super(props)
 
       this.state = {
+        country: '',
         enterManually:false,
         enterMauallyText:'Enter address manually',
         suburbOnly:props.type === 'suburb',
