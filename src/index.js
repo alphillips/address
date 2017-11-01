@@ -56,6 +56,11 @@ class Address extends React.Component {
     if(nextProps.value && !this.state.suburbOnly){
       this.populateAddress(nextProps.value)
     }
+    if(nextProps.value && this.state.suburbOnly){
+      this.setState((prevState, props) => ({
+        defaultValue: nextProps.value
+      }))
+    }
   }
 
   populateAddress(data){
