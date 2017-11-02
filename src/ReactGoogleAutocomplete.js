@@ -52,10 +52,16 @@ export default class ReactGoogleAutocomplete extends React.Component {
     }))
   }
 
-  onChange = () => {
+  onChange = (val) => {
     this.setState((prevState, props) => ({
       value: this.state.resetValue
     }))
+
+    if(val.trim().length < 1){
+      if(this.props.onClear){
+        this.props.onClear()
+      }
+    }
   }
 
   onSelected() {
