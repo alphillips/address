@@ -64,6 +64,7 @@ class Address extends React.Component {
   }
 
   populateAddress(data){
+
     if(data){
       let address = ''
 
@@ -121,6 +122,9 @@ class Address extends React.Component {
 
       this.address = data
     }
+    this.setState((prevState, props) => ({
+      defaultValue: ''
+    }))
   }
 
   onChange = (field) => {
@@ -133,6 +137,15 @@ class Address extends React.Component {
         this.props.onChange(this.address)
       }
     }
+  }
+
+  onAutocompleteClear = () => {
+    if(this.state.suburbOnly){
+      this.props.onChange(' ')
+    } else {
+      this.props.onChange({})
+    }
+
   }
 
   onPlaceSelected = (places) => {
@@ -201,8 +214,8 @@ class Address extends React.Component {
               id={this.id}
               name={this.id}
               label={this.props.label || 'Address'}
-              disabled = {this.state.enterManually}
-              onChange = {this.onChange()}
+              disabled={this.state.enterManually}
+              onClear={this.onAutocompleteClear}
               {...otherProps}
             />
 
