@@ -100,8 +100,14 @@ class Address extends React.Component {
       }))
       let countryCode = data.country
       // get the country
+
       let urlPrefix = (process.env.API_HOST || '') + '/api/refdata/'
-      fetch(urlPrefix + 'country', { credentials: 'same-origin' }).then(
+
+      if(this.props.countryUrl) {
+        urlPrefix = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + props.countryUrl
+      }
+
+      fetch(urlPrefix + (this.props.countryType || 'country'), { credentials: 'same-origin' }).then(
         response => {
           if (response.status === 200) {
             response.text().then(data => {
@@ -279,9 +285,11 @@ class Address extends React.Component {
             id="country-selector"
             label="Country"
             placeholder="Select country"
-            type="country"
+            type={this.props.countryType || 'country'}
             onChange={this.onChange('country')}
             value={this.address.country}
+            url={this.props.countryUrl || null}
+
           />
         }
         {this.state.localOnly &&
