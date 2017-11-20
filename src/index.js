@@ -104,7 +104,7 @@ class Address extends React.Component {
       let urlPrefix = (process.env.API_HOST || '') + '/api/refdata/'
 
       if(this.props.countryUrl) {
-        urlPrefix = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + props.countryUrl
+        urlPrefix = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + this.props.countryUrl
       }
 
       fetch(urlPrefix + (this.props.countryType || 'country'), { credentials: 'same-origin' }).then(
