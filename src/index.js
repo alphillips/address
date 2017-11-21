@@ -90,7 +90,7 @@ class Address extends React.Component {
         address += ' ' + data.postcode
       }
 
-      if (this.props.country && this.props.country !== "") {
+      if (data.country && data.country.trim().length > 0 && this.props.country && this.props.country !== "") {
         data.country = this.props.country
       }
 
