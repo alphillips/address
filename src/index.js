@@ -249,14 +249,14 @@ class Address extends React.Component {
             value={this.address.addressLine2}
             onChange={this.onChange('addressLine2')}
           />
-
-          <Input
-            label="Address line 3"
-            id="address3"
-            value={this.address.addressLine3}
-            onChange={this.onChange('addressLine3')}
-          />
-
+        {
+         // <Input
+         //    label="Address line 3"
+         //    id="address3"
+         //    value={this.address.addressLine3}
+         //    onChange={this.onChange('addressLine3')}
+         //  />
+       }
           <Input
             label="Suburb"
             id="suburb"
