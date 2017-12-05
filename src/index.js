@@ -125,7 +125,6 @@ class Address extends React.Component {
           }
         }
       )
-
       this.address = data
     }
   }

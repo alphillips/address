@@ -59,7 +59,7 @@ class Demo extends Component {
           onChange={this.onChangeAddress1}
           label="Client address"
           country="au"
-          required={false}
+          required={true}
         />
 
         <h2>Pre-populated address</h2>
