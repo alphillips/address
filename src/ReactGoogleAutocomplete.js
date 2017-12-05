@@ -18,7 +18,7 @@ export default class ReactGoogleAutocomplete extends React.Component {
     this.state = {
       value:props.defaultValue || '',
       disabled: props.disabled,
-      required: true,
+      required: props.required || false,
       resetValue:''
     }
   }

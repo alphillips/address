@@ -125,12 +125,8 @@ class Address extends React.Component {
           }
         }
       )
-
       this.address = data
     }
-    this.setState((prevState, props) => ({
-      defaultValue: ''
-    }))
   }
 
   onChange = (field) => {
@@ -222,6 +218,7 @@ class Address extends React.Component {
               label={this.props.label || 'Address'}
               disabled={this.state.enterManually}
               onClear={this.onAutocompleteClear}
+              required={this.props.required}
               {...otherProps}
             />
 
