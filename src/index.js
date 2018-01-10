@@ -7,6 +7,9 @@ import Input from '@react-ag-components/input'
 import ReferenceDataSelector from '@react-ag-components/reference-data-selector'
 // import ReferenceDataSelector from './../../components/RefDataSelector'
 
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 import './ui-kit.css'
 import './styles.css'
 
@@ -39,7 +42,15 @@ class Address extends React.Component {
         display: "inline-block",
         marginBottom:"1em"
       }
+
+      this.styles = {
+        customWidth: {
+          width: "100%",
+        }
+      };
   }
+
+
 
   componentDidMount() {
     if(this.props.value && !this.state.suburbOnly){
@@ -195,6 +206,18 @@ class Address extends React.Component {
     return document.getElementById(this.id).value
   }
 
+  handleChange =  (event, index, value) => {
+
+    this.setState((prevState, props) => ({
+      state: value
+    }))
+    this.address.state = value
+    if(this.props.onChange){
+      this.props.onChange(this.address)
+    }
+
+  }
+
   render() {
 
     let otherProps = {}
@@ -254,19 +277,42 @@ class Address extends React.Component {
          //    onChange={this.onChange('addressLine3')}
          //  />
        }
-          <Input
-            label="Suburb"
-            id="suburb"
-            value={this.address.suburb}
-            onChange={this.onChange('suburb')}
-          />
 
-          <Input
-            label="State"
-            id="state"
-            value={this.address.state}
-            onChange={this.onChange('state')}
-          />
+        <Input
+          label="Suburb"
+          id="suburb"
+          value={this.address.suburb}
+          onChange={this.onChange('suburb')}
+        />
+
+
+
+        { (!this.address.country || this.address.country.toUpperCase()!="AU" ) &&
+              <Input
+                label="State"
+                id="state"
+                value={this.address.state}
+                onChange={this.onChange('state')}
+              />
+        }
+
+
+        { this.address && this.address.country && (this.address.country.toUpperCase()==="AU" || this.address.country.toUpperCase()==="AUSTRALIA") &&
+           <SelectField  floatingLabelText="State"
+                         onChange={this.handleChange}
+                         value={this.address.state}
+                         style={this.styles.customWidth}
+                         id="state">
+              <MenuItem value="ACT" primaryText="Australian Capital Territory" />
+              <MenuItem value="NSW" primaryText="New South Wales" />
+              <MenuItem value="NT" primaryText="Northern Territory" />
+              <MenuItem value="QLD" primaryText="Queensland" />
+              <MenuItem value="SA" primaryText="South Australia" />
+              <MenuItem value="TAS" primaryText="Tasmania" />
+              <MenuItem value="WA" primaryText="Western Australia" />
+           </SelectField>
+       }
+
 
           <Input
             label="Postcode"
@@ -277,7 +323,7 @@ class Address extends React.Component {
             maxWidth="100px"
           />
 
-        {!this.state.localOnly &&
+      { !this.state.localOnly &&
           <ReferenceDataSelector
             id="country-selector"
             label="Country"

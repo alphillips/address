@@ -45,6 +45,13 @@ class Demo extends Component {
     }))
   }
 
+
+    onChangeState = (state) => {
+      this.setState((prevState, props) => ({
+        state: state
+      }))
+    }
+
   handleNext = () => {
       hashHistory.push('/' )
   }
