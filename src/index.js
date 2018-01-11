@@ -6,6 +6,8 @@ import Input from '@react-ag-components/input'
 // import Input from './../../components/Input'
 import ReferenceDataSelector from '@react-ag-components/reference-data-selector'
 // import ReferenceDataSelector from './../../components/RefDataSelector'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import './ui-kit.css'
 import './styles.css'
@@ -28,6 +30,14 @@ class Address extends React.Component {
       this.alwaysDisabled = true
       // the version in google search textfield
       this.address = {}
+
+      if(props.country && props.country.toLowerCase()==="au"){
+        this.address.country = 'au'
+      }
+
+      if(props.defaultCountry){
+        this.address.country = props.defaultCountry
+      }
 
       this.id = '_' + Math.random().toString(36).substr(2, 9)
 
@@ -195,6 +205,17 @@ class Address extends React.Component {
     return document.getElementById(this.id).value
   }
 
+  handleStateSelectChange = (event, index, value) => {
+    this.setState((prevState, props) => ({
+      state: value
+    }));
+    this.address.state = value;
+    if (this.props.onChange) {
+      this.props.onChange(this.address);
+    }
+  };
+
+
   render() {
 
     let otherProps = {}
@@ -202,6 +223,11 @@ class Address extends React.Component {
       otherProps.componentRestrictions = {}
       otherProps.componentRestrictions.country = this.props.country
     }
+
+    const selectFieldStyle = {
+      width: "100%",
+      'color':'#999'
+    };
 
     return (
       <div>
@@ -233,6 +259,28 @@ class Address extends React.Component {
 
         {this.state.enterManually &&
         <div>
+
+        {!this.state.localOnly &&
+          <ReferenceDataSelector
+            id="country-selector"
+            label="Country"
+            placeholder="Select country"
+            type={this.props.countryType || 'country'}
+            onChange={this.onChange('country')}
+            value={this.address.country}
+            url={this.props.countryUrl || null}
+          />
+        }
+        {this.state.localOnly &&
+          <Input
+            disabled={this.alwaysDisabled}
+            id="country-input"
+            label="Country"
+            type="country"
+            value={this.australia}
+          />
+        }
+
           <Input
             label="Address line 1"
             id="address1"
@@ -241,7 +289,7 @@ class Address extends React.Component {
           />
 
           <Input
-            label="Address line 2"
+            label="Address line 2 (optional)"
             id="address2"
             value={this.address.addressLine2}
             onChange={this.onChange('addressLine2')}
@@ -261,43 +309,60 @@ class Address extends React.Component {
             onChange={this.onChange('suburb')}
           />
 
-          <Input
-            label="State"
-            id="state"
-            value={this.address.state}
-            onChange={this.onChange('state')}
-          />
+          <div className="uikit-grid">
+            <div className="row">
+              <div className="col-md-6">
 
-          <Input
-            label="Postcode"
-            id="postcode"
-            value={this.address.postcode}
-            onChange={this.onChange('postcode')}
-            type="tel"
-            maxWidth="100px"
-          />
+                {
+                  (!this.address.country || this.address.country.toUpperCase() != "AU") && (
+                    <Input
+                      label="State"
+                      id="state"
+                      value={this.address.state}
+                      onChange={this.onChange("state")}
+                    />
+                  )
+                }
 
-        {!this.state.localOnly &&
-          <ReferenceDataSelector
-            id="country-selector"
-            label="Country"
-            placeholder="Select country"
-            type={this.props.countryType || 'country'}
-            onChange={this.onChange('country')}
-            value={this.address.country}
-            url={this.props.countryUrl || null}
+                {
+                  this.address &&
+                    this.address.country &&
+                    (this.address.country.toUpperCase() === "AU" ||
+                      this.address.country.toUpperCase() === "AUSTRALIA") && (
+                      <SelectField
+                        floatingLabelText="State"
+                        onChange={this.handleStateSelectChange}
+                        value={this.address.state}
+                        style={selectFieldStyle}
+                        floatingLabelStyle={selectFieldStyle}
+                        id="state"
+                      >
+                        <MenuItem value="ACT" primaryText="Australian Capital Territory" />
+                        <MenuItem value="NSW" primaryText="New South Wales" />
+                        <MenuItem value="NT" primaryText="Northern Territory" />
+                        <MenuItem value="QLD" primaryText="Queensland" />
+                        <MenuItem value="SA" primaryText="South Australia" />
+                        <MenuItem value="TAS" primaryText="Tasmania" />
+                        <MenuItem value="WA" primaryText="Western Australia" />
+                      </SelectField>
+                    )
+                }
 
-          />
-        }
-        {this.state.localOnly &&
-          <Input
-            disabled={this.alwaysDisabled}
-            id="country-input"
-            label="Country"
-            type="country"
-            value={this.australia}
-          />
-        }
+
+
+              </div>
+              <div className="col-md-6">
+                <Input
+                  label="Postcode"
+                  id="postcode"
+                  value={this.address.postcode}
+                  onChange={this.onChange('postcode')}
+                  type="tel"
+                  maxWidth="100px"
+                />
+              </div>
+            </div>
+          </div>
 
         </div>
         }
