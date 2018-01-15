@@ -343,6 +343,7 @@ class Address extends React.Component {
                         <MenuItem value="QLD" primaryText="Queensland" />
                         <MenuItem value="SA" primaryText="South Australia" />
                         <MenuItem value="TAS" primaryText="Tasmania" />
+                        <MenuItem value="VIC" primaryText="Victoria" />
                         <MenuItem value="WA" primaryText="Western Australia" />
                       </SelectField>
                     )
