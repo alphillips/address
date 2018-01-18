@@ -195,10 +195,23 @@ class Address extends React.Component {
 
   handleManualAddressClick = (e) => {
     e.preventDefault()
+
+    // When opening "Enter address manually" after clearing address
+    if(!this.state.enterManually){
+      if(this.props.country && this.props.country.toLowerCase()==="au"){
+        this.address.country = 'au'
+      }
+
+      if(this.props.defaultCountry){
+        this.address.country = this.props.defaultCountry
+      }
+    }
+
     this.setState((prevState, props) => ({
       enterManually: !prevState.enterManually,
       enterMauallyText: (prevState.enterManually ? 'Enter address manually' : 'Close manual address')
     }))
+
   }
 
   getAddressEntryFieldText = () => {
