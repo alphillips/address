@@ -32,7 +32,7 @@ class Address extends React.Component {
       this.address = {}
 
       if(props.country && props.country.toLowerCase()==="au"){
-        this.address.country = 'au'
+        this.address.country = 'AU'
       }
 
       if(props.defaultCountry){
@@ -199,7 +199,7 @@ class Address extends React.Component {
     // When opening "Enter address manually" after clearing address
     if(!this.state.enterManually){
       if(this.props.country && this.props.country.toLowerCase()==="au"){
-        this.address.country = 'au'
+        this.address.country = 'AU'
       }
 
       if(this.props.defaultCountry){
