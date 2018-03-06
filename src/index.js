@@ -274,7 +274,7 @@ class Address extends React.Component {
 
         {this.state.enterManually &&
         <div>
-        <h3 className="no-bottom">{this.props.label || 'Address'}</h3>
+        <h3 className="address-header">{this.props.label || 'Address'}</h3>
         {!this.state.localOnly &&
           <ReferenceDataSelector
             id="country-selector"
