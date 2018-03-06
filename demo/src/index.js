@@ -57,7 +57,7 @@ class Demo extends Component {
         <Component
           value={this.state.address1}
           onChange={this.onChangeAddress1}
-          label="Client address"
+          label="Home Address"
           country="au"
           required={true}
         />

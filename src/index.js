@@ -20,10 +20,10 @@ class Address extends React.Component {
       this.state = {
         country: '',
         enterManually:false,
-        enterMauallyText:'Enter address manually',
+        enterMauallyText:"I can't find my address",
         suburbOnly:props.type === 'suburb',
         defaultValue: '',
-        localOnly: (props.country && props.country.toLowerCase()==="au") || false
+        localOnly: (props.country && props.country.toUpperCase()==="AU") || false
       }
 
       this.australia = "Australia"
@@ -31,7 +31,7 @@ class Address extends React.Component {
       // the version in google search textfield
       this.address = {}
 
-      if(props.country && props.country.toLowerCase()==="au"){
+      if(props.country && props.country.toUpperCase()==="AU"){
         this.address.country = 'AU'
       }
 
@@ -123,7 +123,7 @@ class Address extends React.Component {
             response.text().then(data => {
               let parsedData = JSON.parse(data)
               if(countryCode){
-                let text = parsedData.find((item) =>  item.value.toLowerCase() === countryCode.toLowerCase())
+                let text = parsedData.find((item) =>  item.value.toUpperCase() === countryCode.toUpperCase())
                 if(text.label){
                   address += ', ' + text.label
                   this.setState({
@@ -198,7 +198,7 @@ class Address extends React.Component {
 
     // When opening "Enter address manually" after clearing address
     if(!this.state.enterManually){
-      if(this.props.country && this.props.country.toLowerCase()==="au"){
+      if(this.props.country && this.props.country.toUpperCase()==="AU"){
         this.address.country = 'AU'
       }
 
@@ -209,7 +209,7 @@ class Address extends React.Component {
 
     this.setState((prevState, props) => ({
       enterManually: !prevState.enterManually,
-      enterMauallyText: (prevState.enterManually ? 'Enter address manually' : 'Close manual address')
+      enterMauallyText: (prevState.enterManually ? "I can't find my address" : "Find my address")
     }))
 
   }
@@ -244,8 +244,8 @@ class Address extends React.Component {
 
     return (
       <div>
-        <fieldset className="address-field">
-
+        {!this.state.enterManually &&
+          <fieldset className="address-field">
             <Autocomplete
               onPlaceSelected={this.onPlaceSelected}
               types={['geocode']}
@@ -260,19 +260,21 @@ class Address extends React.Component {
               required={this.props.required || false}
               {...otherProps}
             />
-
-        </fieldset>
-        {!this.state.suburbOnly &&
-          <a
-            href="#"
-            style={this.linkStyle}
-            onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
-          </a>
+          </fieldset>
+        }
+        {!this.state.suburbOnly && !this.state.enterManually &&
+          <div className="address-manual-switch">
+            <a
+              href="#"
+              style={this.linkStyle}
+              onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
+            </a>
+          </div>
         }
 
         {this.state.enterManually &&
         <div>
-
+        <h3 className="no-bottom">{this.props.label || 'Address'}</h3>
         {!this.state.localOnly &&
           <ReferenceDataSelector
             id="country-selector"
@@ -362,8 +364,6 @@ class Address extends React.Component {
                     )
                 }
 
-
-
               </div>
               <div className="col-md-6">
                 <Input
@@ -375,6 +375,15 @@ class Address extends React.Component {
                   maxWidth="100px"
                 />
               </div>
+              {!this.state.suburbOnly && this.state.enterManually &&
+                <div className="address-manual-switch">
+                  <a
+                    href="#"
+                    style={this.linkStyle}
+                    onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
+                  </a>
+                </div>
+              }
             </div>
           </div>
 
