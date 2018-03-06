@@ -11,9 +11,12 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
+    "build": "npm run build-css && nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
-    "start": "nwb serve-react-demo",
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "start-demo": "nwb serve-react-demo",
+    "start": "npm-run-all --parallel start-demo watch-css",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server"
@@ -28,6 +31,7 @@
     "react": "15.x"
   },
   "devDependencies": {
+    "node-sass": "^4.5.3",
     "nwb": "0.15.x",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
