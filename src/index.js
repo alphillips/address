@@ -49,6 +49,8 @@ class Address extends React.Component {
         display: "inline-block",
         marginBottom:"1em"
       }
+
+      this.cachedCountryList = null
   }
 
   componentDidMount() {
@@ -117,24 +119,39 @@ class Address extends React.Component {
         urlPrefix = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + this.props.countryUrl
       }
 
-      fetch(urlPrefix + (this.props.countryType || 'country'), { credentials: 'same-origin' }).then(
-        response => {
-          if (response.status === 200) {
-            response.text().then(data => {
-              let parsedData = JSON.parse(data)
-              if(countryCode){
-                let text = parsedData.find((item) =>  item.value.toUpperCase() === countryCode.toUpperCase())
-                if(text.label){
-                  address += ', ' + text.label
-                  this.setState({
-                    defaultValue: address
-                  })
-                }
-              }
+      if(this.cachedCountryList){
+        let parsedData = this.cachedCountryList
+        if(countryCode){
+          let text = parsedData.find((item) =>  item.value.toUpperCase() === countryCode.toUpperCase())
+          if(text.label){
+            address += ', ' + text.label
+            this.setState({
+              defaultValue: address
             })
           }
         }
-      )
+      } else {
+        fetch(urlPrefix + (this.props.countryType || 'country'), { credentials: 'same-origin' }).then(
+          response => {
+            if (response.status === 200) {
+              response.text().then(data => {
+                let parsedData = JSON.parse(data)
+                this.cachedCountryList = parsedData
+                if(countryCode){
+                  let text = parsedData.find((item) =>  item.value.toUpperCase() === countryCode.toUpperCase())
+                  if(text.label){
+                    address += ', ' + text.label
+                    this.setState({
+                      defaultValue: address
+                    })
+                  }
+                }
+              })
+            }
+          }
+        )
+      }
+
       this.address = data
     }
   }
@@ -166,7 +183,6 @@ class Address extends React.Component {
       var addressType = places.address_components[i].types[0];
       address[addressType] = places.address_components[i].short_name
     }
-
     let line1 = ''
     if(address.subpremise){
       line1 += address.subpremise + '/'
@@ -186,7 +202,11 @@ class Address extends React.Component {
 
     if(this.props.onChange){
       if(this.state.suburbOnly){
-        this.props.onChange(this.address.suburb)
+        let suburb = this.address.suburb
+        if(!suburb){
+          suburb = this.address.state
+        }
+        this.props.onChange(suburb, this.address.country)
       } else {
         this.props.onChange(this.address)
       }
