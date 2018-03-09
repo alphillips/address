@@ -395,18 +395,17 @@ class Address extends React.Component {
                   maxWidth="100px"
                 />
               </div>
-              {!this.state.suburbOnly && this.state.enterManually &&
-                <div className="address-manual-switch">
-                  <a
-                    href="#"
-                    style={this.linkStyle}
-                    onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
-                  </a>
-                </div>
-              }
             </div>
           </div>
-
+          {!this.state.suburbOnly && this.state.enterManually &&
+            <div className="address-manual-switch">
+              <a
+                href="#"
+                style={this.linkStyle}
+                onClick={this.handleManualAddressClick}>{this.state.enterMauallyText}
+              </a>
+            </div>
+          }
         </div>
         }
 
