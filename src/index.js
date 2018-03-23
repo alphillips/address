@@ -302,7 +302,7 @@ class Address extends React.Component {
             placeholder="Select country"
             type={this.props.countryType || 'country'}
             onChange={this.onChange('country')}
-            value={this.address.country}
+            value={this.address.country.toUpperCase()}
             url={this.props.countryUrl || null}
           />
         }
