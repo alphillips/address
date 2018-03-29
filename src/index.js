@@ -223,7 +223,7 @@ class Address extends React.Component {
       }
 
       if(this.props.defaultCountry){
-        this.address.country = this.props.defaultCountry
+        this.address.country = this.props.defaultCountry.toUpperCase()
       }
     }
 
