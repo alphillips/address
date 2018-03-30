@@ -31,12 +31,12 @@ class Address extends React.Component {
       // the version in google search textfield
       this.address = {}
 
-      if(props.country && props.country.toUpperCase()==="AU"){
-        this.address.country = 'AU'
+      if(props.country){
+        this.address.country = props.country.toUpperCase()
       }
 
       if(props.defaultCountry){
-        this.address.country = props.defaultCountry
+        this.address.country = props.defaultCountry.toUpperCase()
       }
 
       this.id = '_' + Math.random().toString(36).substr(2, 9)
@@ -103,7 +103,7 @@ class Address extends React.Component {
       }
 
       if (data.country && data.country.trim().length > 0 && this.props.country && this.props.country !== "") {
-        data.country = this.props.country
+        data.country = this.props.country.toUpperCase()
       }
 
       //address += data.country
