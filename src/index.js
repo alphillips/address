@@ -36,7 +36,7 @@ class Address extends React.Component {
       }
 
       if(props.defaultCountry){
-        this.address.country = props.defaultCountry
+        this.address.country = props.defaultCountry.toUpperCase()
       }
 
       this.id = '_' + Math.random().toString(36).substr(2, 9)
@@ -198,7 +198,7 @@ class Address extends React.Component {
     this.address.suburb=address.locality
     this.address.state=address.administrative_area_level_1
     this.address.postcode=address.postal_code
-    this.address.country=address.country
+    this.address.country=address.country.toUpperCase()
 
     if(this.props.onChange){
       if(this.state.suburbOnly){
@@ -223,7 +223,7 @@ class Address extends React.Component {
       }
 
       if(this.props.defaultCountry){
-        this.address.country = this.props.defaultCountry
+        this.address.country = this.props.defaultCountry.toUpperCase()
       }
     }
 
@@ -302,7 +302,7 @@ class Address extends React.Component {
             placeholder="Select country"
             type={this.props.countryType || 'country'}
             onChange={this.onChange('country')}
-            value={this.address.country.toUpperCase()}
+            value={JSON.stringify(this.address)!=="{}" ? this.address.country.toUpperCase() : this.address.country}
             url={this.props.countryUrl || null}
           />
         }

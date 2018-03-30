@@ -46,7 +46,7 @@ class Demo extends Component {
   }
 
   handleNext = () => {
-      hashHistory.push('/' )
+    hashHistory.push('/' )
   }
 
   render() {
