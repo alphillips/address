@@ -65,7 +65,6 @@ export default class ReactGoogleAutocomplete extends React.Component {
   }
 
   onSelected() {
-
     if (this.props.onPlaceSelected) {
       this.setState((prevState, props) => ({
         value: this.autocomplete.getPlace().formatted_address

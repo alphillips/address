@@ -95,6 +95,11 @@ class Input extends React.Component {
     }
   }
 
+  onPaste = (e) => {
+   e.preventDefault()
+    return false
+  }
+
 
   render() {
     const styles = {
@@ -133,6 +138,7 @@ class Input extends React.Component {
         floatingLabelText={this.props.label}
         onBlur={this.onBlur}
         onChange={this.onChange}
+        onPaste={this.onPaste}
         fullWidth={true}
         floatingLabelStyle={styles.hintStyle}
         multiLine={this.props.multiLine || false}
