@@ -196,6 +196,9 @@ class Address extends React.Component {
     this.address.addressLine3=''
 
     this.address.suburb=address.locality
+    if(!address.locality){
+      this.address.suburb=address.neighborhood
+    }
     this.address.state=address.administrative_area_level_1
     this.address.postcode=address.postal_code
     this.address.country=address.country
