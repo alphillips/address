@@ -341,7 +341,7 @@ class Address extends React.Component {
          //  />
        }
           <Input
-            label="Suburb"
+            label="City"
             id="suburb"
             value={this.address.suburb}
             onChange={this.onChange('suburb')}

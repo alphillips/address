@@ -1,6 +1,6 @@
 {
   "name": "@react-ag-components/address",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "address-autocomplete React component",
   "main": "lib/index.js",
   "module": "es/index.js",
