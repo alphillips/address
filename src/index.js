@@ -197,7 +197,15 @@ class Address extends React.Component {
 
     this.address.suburb=address.locality
     if(!address.locality){
-      this.address.suburb=address.neighborhood
+      if(address.neighborhood){
+        this.address.suburb=address.neighborhood
+      }
+      if(address.administrative_area_level_2){
+        this.address.suburb=address.administrative_area_level_2
+      }
+      if(address.administrative_area_level_3){
+        this.address.suburb=address.administrative_area_level_3
+      }
     }
     this.address.state=address.administrative_area_level_1
     this.address.postcode=address.postal_code
@@ -324,6 +332,7 @@ class Address extends React.Component {
             id="address1"
             value={this.address.addressLine1}
             onChange={this.onChange('addressLine1')}
+            maxlength={200}
           />
 
           <Input
@@ -331,6 +340,7 @@ class Address extends React.Component {
             id="address2"
             value={this.address.addressLine2}
             onChange={this.onChange('addressLine2')}
+            maxlength={200}
           />
         {
          // <Input
@@ -345,6 +355,7 @@ class Address extends React.Component {
             id="suburb"
             value={this.address.suburb}
             onChange={this.onChange('suburb')}
+            maxlength={200}
           />
 
           <div className="uikit-grid">
@@ -358,6 +369,7 @@ class Address extends React.Component {
                       id="state"
                       value={this.address.state}
                       onChange={this.onChange("state")}
+                      maxlength={200}
                     />
                   )
                 }
@@ -396,6 +408,7 @@ class Address extends React.Component {
                   onChange={this.onChange('postcode')}
                   type="tel"
                   maxWidth="100px"
+                  maxlength={10}
                 />
               </div>
             </div>
