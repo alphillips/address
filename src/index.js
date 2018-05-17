@@ -131,25 +131,25 @@ class Address extends React.Component {
           }
         }
       } else {
-        // fetch(urlPrefix + (this.props.countryType || 'country'), { credentials: 'same-origin' }).then(
-        //   response => {
-        //     if (response.status === 200) {
-        //       response.text().then(data => {
-        //         let parsedData = JSON.parse(data)
-        //         this.cachedCountryList = parsedData
-        //         if(countryCode){
-        //           let text = parsedData.find((item) =>  item.value.toUpperCase() === countryCode.toUpperCase())
-        //           if(text.label){
-        //             address += ', ' + text.label
-        //             this.setState({
-        //               defaultValue: address
-        //             })
-        //           }
-        //         }
-        //       })
-        //     }
-        //   }
-        // )
+        fetch(urlPrefix + (this.props.countryType || 'country'), { credentials: 'same-origin' }).then(
+          response => {
+            if (response.status === 200) {
+              response.text().then(data => {
+                let parsedData = JSON.parse(data)
+                this.cachedCountryList = parsedData
+                if(countryCode){
+                  let text = parsedData.find((item) =>  item.value.toUpperCase() === countryCode.toUpperCase())
+                  if(text.label){
+                    address += ', ' + text.label
+                    this.setState({
+                      defaultValue: address
+                    })
+                  }
+                }
+              })
+            }
+          }
+        )
       }
 
       this.address = data
